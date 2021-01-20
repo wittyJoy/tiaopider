@@ -1,19 +1,11 @@
-/*
- * @Author: 王佳宇 
- * @Date: 2021-01-07 16:48:28 
- * @Last Modified by:   王佳宇 
- * @Last Modified time: 2021-01-07 16:48:28 
- */
 <template>
-  <div>
-    
-  </div>
+		<div id="jsi-flying-fish-container" class="container"></div>
 </template>
 
+<script src="./flyFish.js" type="text/javascript"></script>
 <script>
-
   export default {
-    name:'',
+    name:'flyFish',
     props:[''],
     data () {
       return {

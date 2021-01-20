@@ -10,3 +10,5 @@ new Vue({
   store,
   render: function (h) { return h(App) }
 }).$mount('#app')
+
+console.log('000----000', process.env.VUE_APP_URL);
