@@ -12,7 +12,7 @@
 				<!-- <img alt="tiao" src=""> -->
 			</div>
 			<ul class="top_navlist">
-				<a target="_blank" href="" class="top_nav" draggable="false">
+				<a class="top_nav" draggable="false" @click="toLogin">
 					<li>登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</li>
 				</a>
 				<a target="_blank" href="" class="top_nav" draggable="false">
@@ -54,7 +54,11 @@
 
     mounted() {},
 
-    methods: {},
+    methods: {
+			toLogin(){
+				this.$router.push('/home');
+			}
+		},
 
     watch: {}
 

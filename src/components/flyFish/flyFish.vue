@@ -2,8 +2,8 @@
 		<div id="jsi-flying-fish-container" class="container"></div>
 </template>
 
-<script src="./flyFish.js" type="text/javascript"></script>
 <script>
+import './flyFish.js'
   export default {
     name:'flyFish',
     props:[''],
@@ -29,5 +29,11 @@
 
 </script>
 <style scoped>
-
+  .container {
+    width: 100%;
+    position: fixed;
+    z-index: 8;
+    bottom: 0;
+    left: 0;
+  }
 </style>

@@ -1,3 +1,5 @@
+import $ from '@/utils/jquery-3.4.1.js'
+
 var RENDERER = {
 	POINT_INTERVAL : 5,
 	FISH_COUNT : 3,

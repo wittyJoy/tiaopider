@@ -1,10 +1,11 @@
 <template>
   <div>
-    
+    <flyFish/>
   </div>
 </template>
 
 <script>
+import flyFish from '@/components/flyFish/flyFish.vue'
 
   export default {
     name:'',
@@ -15,7 +16,9 @@
       };
     },
 
-    components: {},
+    components: {
+      flyFish,
+    },
 
     computed: {},
 
