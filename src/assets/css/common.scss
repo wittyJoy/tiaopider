@@ -1,0 +1,240 @@
+body,
+div,
+p,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+table,
+tr,
+td,
+form,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+fieldset,
+img,
+input {
+  margin: 0;
+  padding: 0;
+}
+body,
+html {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  font-size: 14px;
+  background: #fff;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+img {
+  display: block;
+}
+a {
+  margin: 0;
+  text-decoration: none;
+}
+li,
+ol {
+  list-style: none;
+}
+/* 清除浮动 */
+.clearfix:after {
+  height: 0;
+  content: "";
+  display: block;
+  clear: both;
+}
+.clearfix {
+  /* 兼容 IE */
+  zoom: 1;
+}
+
+/* 布局 */
+/* 水平对齐 */
+.flexh {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+/* 垂直对齐 */
+.flexv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+/* 不扩展自身 */
+.flex0 {
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+}
+/* 尽可能占空余空间 */
+.flex1 {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+/* 两端向中间对齐 */
+.flex-between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+/* 中间向两端对齐 */
+.flex-around {
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+/* 垂直排序 */
+.flex-vstart {
+  align-items: flex-start;
+}
+/* 水平排序 */
+.flex-hstart {
+  justify-content: flex-start;
+}
+
+/* 多列 水平居中对齐 */
+.flex-vcenter {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+/* 多行垂直居中对齐 */
+.flex-hcenter {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+/* 垂直倒序 */
+.flex-vend {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+/* 水平倒序 */
+.flex-hend {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+/* 自身重定对齐 */
+.flex-self-start {
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+.flex-self-center {
+  align-self: center;
+}
+.flex-self-end {
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+}
+
+/*flex换行*/
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+/*手形鼠标*/
+.cur-pointer {
+  cursor: pointer;
+}
+
+/*阴影*/
+.box-shadow {
+  -webkit-box-shadow: 0 0 13px -5px #000;
+  box-shadow: 0 0 13px -5px #000;
+}
+/* 文本处理 */
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-nowrap {
+  white-space: nowrap;
+}
+.over-hide {
+  overflow: hidden;
+}
+/*文本换行*/
+.break-all {
+  word-break: break-all;
+}
+/*文本pre显示*/
+.content-pro {
+  white-space: pre-wrap;
+}
+/*省略号*/
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*美化滚动条*/
+.scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #ddd;
+  }
+  &::-webkit-scrollbar-button {
+    display: block;
+    width: 1px;
+    height: 1px;
+  }
+  &.auto-hide::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: transparent;
+  }
+
+  &.auto-hide {
+    &:hover::-webkit-scrollbar-thumb {
+      background-color: #c3c3c3;
+    }
+    &:hover::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+  }
+}
+// 颜色class
+.color-link {
+  color: #459ae9;
+}
+.color-grey {
+  color: #8b97a4;
+}
+.color-green {
+  color: #4ee49b;
+}

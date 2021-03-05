@@ -1,38 +1,33 @@
 <template>
   <div>
-    <flyFish/>
+    <mini-player />
   </div>
 </template>
 
 <script>
-import flyFish from '@/components/flyFish/flyFish.vue'
+import miniPlayer from "@/components/mini-player";
 
-  export default {
-    name:'',
-    props:[''],
-    data () {
-      return {
+export default {
+  name: "",
+  props: [""],
+  data() {
+    return {};
+  },
 
-      };
-    },
+  components: {
+    miniPlayer,
+  },
 
-    components: {
-      flyFish,
-    },
+  computed: {},
 
-    computed: {},
+  beforeMount() {},
 
-    beforeMount() {},
+  mounted() {},
 
-    mounted() {},
+  methods: {},
 
-    methods: {},
-
-    watch: {}
-
-  }
-
+  watch: {},
+};
 </script>
-<style scoped>
-
+<style lang="scss" scoped>
 </style>

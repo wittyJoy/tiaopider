@@ -1,0 +1,102 @@
+{
+  "list": [
+    {
+      "code": "remen",
+      "name": "热门常用",
+      "urlList": [
+        {
+          "code": "tengxunshipin",
+          "name": "腾讯视频",
+          "url": "https://v.qq.com/"
+        },
+        {
+          "code": "youku",
+          "name": "优酷",
+          "url": "https://www.youku.com/"
+        },
+        {
+          "code": "aiqiyi",
+          "name": "爱奇艺",
+          "url": "https://www.iqiyi.com/"
+        },
+        {
+          "code": "taobao",
+          "name": "淘宝网",
+          "url": "https://www.taobao.com/"
+        },
+        {
+          "code": "pinterest",
+          "name": "Pinterest",
+          "url": "https://www.pinterest.com/"
+        },
+        {
+          "code": "huaban",
+          "name": "花瓣",
+          "url": "https://huaban.com/"
+        },
+        {
+          "code": "weibo",
+          "name": "微博",
+          "url": "https://www.weibo.com/"
+        },
+        {
+          "code": "netflix",
+          "name": "奈非影视",
+          "url": "https://www.nfmovies.com/"
+        }
+      ]
+    },
+    {
+      "code": "shipin",
+      "name": "视频媒体",
+      "urlList": [
+        {
+          "code": "cctv",
+          "name": "CCTV直播",
+          "url": "https://tv.cctv.com/live/index.shtml"
+        },
+        {
+          "code": "youtube",
+          "name": "Youtube",
+          "url": "https://www.youtube.com/"
+        },
+        {
+          "code": "acfun",
+          "name": "ACFUN",
+          "url": "http://www.acfun.cn/index.html"
+        },
+        {
+          "code": "bili",
+          "name": "哔哩哔哩",
+          "url": "https://www.bilibili.com/"
+        },
+        {
+          "code": "yingshi",
+          "name": "K1080",
+          "url": "https://k1080.net/"
+        },
+        {
+          "code": "yunbo",
+          "name": "云播TV",
+          "url": "https://yunbtv.com/"
+        },
+        {
+          "code": "yingshi06",
+          "name": "凌云影视",
+          "url": "https://www.lyys8.com/"
+        }
+      ]
+    },
+    {
+      "code": "gouwuche",
+      "name": "购物",
+      "urlList": [
+        {
+          "code": "cctv",
+          "name": "CCTV直播",
+          "url": "https://tv.cctv.com/live/index.shtml"
+        }
+      ]
+    }
+  ]
+}

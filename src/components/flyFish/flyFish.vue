@@ -1,39 +1,35 @@
 <template>
-		<div id="jsi-flying-fish-container" class="container"></div>
+  <div id="jsi-flying-fish-container" class="container"></div>
 </template>
 
 <script>
-import './flyFish.js'
-  export default {
-    name:'flyFish',
-    props:[''],
-    data () {
-      return {
+import "./flyFish.js";
+export default {
+  name: "flyFish",
+  props: [""],
+  data() {
+    return {};
+  },
 
-      };
-    },
+  components: {},
 
-    components: {},
+  computed: {},
 
-    computed: {},
+  beforeMount() {},
 
-    beforeMount() {},
+  mounted() {},
 
-    mounted() {},
+  methods: {},
 
-    methods: {},
-
-    watch: {}
-
-  }
-
+  watch: {},
+};
 </script>
 <style scoped>
-  .container {
-    width: 100%;
-    position: fixed;
-    z-index: 8;
-    bottom: 0;
-    left: 0;
-  }
+.container {
+  width: 100%;
+  position: fixed;
+  z-index: 8;
+  bottom: -4px;
+  left: 0;
+}
 </style>

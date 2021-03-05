@@ -14,6 +14,8 @@ var RENDERER = {
 		this.bindEvent();
 		this.render();
 	},
+
+	// 设置参数
 	setParameters : function(){
 		this.$window = $(window);
 		this.$container = $('#jsi-flying-fish-container');
@@ -23,6 +25,8 @@ var RENDERER = {
 		this.fishes = [];
 		this.watchIds = [];
 	},
+
+	// 创建表面点
 	createSurfacePoints : function(){
 		var count = Math.round(this.width / this.POINT_INTERVAL);
 		this.pointInterval = this.width / (count - 1);
@@ -37,6 +41,8 @@ var RENDERER = {
 			this.points.push(point);
 		}
 	},
+
+	// 重建方法
 	reconstructMethods : function(){
 		this.watchWindowSize = this.watchWindowSize.bind(this);
 		this.jdugeToStopResize = this.jdugeToStopResize.bind(this);
@@ -59,6 +65,8 @@ var RENDERER = {
 		this.fishes.push(new FISH(this));
 		this.createSurfacePoints();
 	},
+
+	// 观察窗口大小
 	watchWindowSize : function(){
 		this.clearTimer();
 		this.tmpWidth = this.$window.width();
@@ -70,6 +78,7 @@ var RENDERER = {
 			clearTimeout(this.watchIds.pop());
 		}
 	},
+	// 转到停止调整大小
 	jdugeToStopResize : function(){
 		var width = this.$window.width(),
 			height = this.$window.height(),
@@ -96,9 +105,12 @@ var RENDERER = {
 			y : event.clientY - offset.top + this.$window.scrollTop()
 		};
 	},
+
+	// 开始中心
 	startEpicenter : function(event){
 		this.axis = this.getAxis(event);
 	},
+	// 移动中心
 	moveEpicenter : function(event){
 		var axis = this.getAxis(event);
 		
@@ -108,6 +120,8 @@ var RENDERER = {
 		this.generateEpicenter(axis.x, axis.y, axis.y - this.axis.y);
 		this.axis = axis;
 	},
+	
+	// 生成中心
 	generateEpicenter : function(x, y, velocity){
 		if(y < this.height / 2 - this.THRESHOLD || y > this.height / 2 + this.THRESHOLD){
 			return;
@@ -119,6 +133,8 @@ var RENDERER = {
 		}
 		this.points[index].interfere(y, velocity);
 	},
+
+	// 反向垂直
 	reverseVertical : function(){
 		this.reverse = !this.reverse;
 		
@@ -126,6 +142,8 @@ var RENDERER = {
 			this.fishes[i].reverseVertical();
 		}
 	},
+
+	// 控制状态
 	controlStatus : function(){
 		for(var i = 0, count = this.points.length; i < count; i++){
 			this.points[i].updateSelf();
@@ -140,11 +158,13 @@ var RENDERER = {
 			}
 		}
 	},
+	// 渲染
 	render : function(){
+		// 请求动画帧
 		requestAnimationFrame(this.render);
 		this.controlStatus();
 		this.context.clearRect(0, 0, this.width, this.height);
-		this.context.fillStyle = 'hsl(0, 0%, 95%)';
+		this.context.fillStyle = 'hsla(0, 0%, 95%, 1)';
 		
 		for(var i = 0, count = this.fishes.length; i < count; i++){
 			this.fishes[i].render(this.context);
@@ -180,20 +200,28 @@ SURFACE_POINT.prototype = {
 		this.fy = 0;
 		this.force = {previous : 0, next : 0};
 	},
+
+	// 设置上一点
 	setPreviousPoint : function(previous){
 		this.previous = previous;
 	},
+
+	// 设置下一个点
 	setNextPoint : function(next){
 		this.next = next;
 	},
+
+	// 干涉
 	interfere : function(y, velocity){
 		this.fy = this.renderer.height * this.ACCELARATION_RATE * ((this.renderer.height - this.height - y) >= 0 ? -1 : 1) * Math.abs(velocity);
 	},
+	// 更新自己
 	updateSelf : function(){
 		this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height);
 		this.fy *= this.SPRING_FRICTION;
 		this.height += this.fy;
 	},
+	// 更新邻居
 	updateNeighbors : function(){
 		if(this.previous){
 			this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height);
@@ -202,6 +230,7 @@ SURFACE_POINT.prototype = {
 			this.force.next = this.WAVE_SPREAD * (this.height - this.next.height);
 		}
 	},
+	// 渲染
 	render : function(context){
 		if(this.previous){
 			this.previous.height += this.force.previous;
@@ -240,13 +269,16 @@ FISH.prototype = {
 		this.theta = 0;
 		this.phi = 0;
 	},
+	// 获取随机值
 	getRandomValue : function(min, max){
 		return min + (max - min) * Math.random();
 	},
+	// 反向垂直
 	reverseVertical : function(){
 		this.isOut = !this.isOut;
 		this.ay *= -1;
 	},
+	// 控制状态
 	controlStatus : function(context){
 		this.previousY = this.y;
 		this.x += this.vx;
@@ -286,6 +318,7 @@ FISH.prototype = {
 			this.init();
 		}
 	},
+	// 渲染
 	render : function(context){
 		context.save();
 		context.translate(this.x, this.y);
