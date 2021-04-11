@@ -14,23 +14,11 @@
         src="https://cn.bing.com//th?id=OHR.HuntsMesa_JA-JP3140979616_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"
         alt=""
       /> -->
-      <div
-        class="bottom-cover"
-        style="
-          background-image: linear-gradient(
-            rgba(255, 255, 255, 0) 0%,
-            rgb(244 248 251 / 0.6) 50%,
-            rgb(244 248 251) 100%
-          );
-        "
-      ></div>
+      <div class="bottom-cover" style="background-image: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(244 248 251 / 0.6) 50%, rgb(244 248 251) 100%)"></div>
     </div>
 
     <!-- 1234567890 -->
-    <div
-      class="container"
-      style="margin-top: 100px; position: relative; z-index: 100"
-    >
+    <div class="container" style="margin-top: 100px; position: relative; z-index: 100">
       <!--搜索开始-->
       <!-- <div id="search" class="s-search">
         <div id="search-list" class="hide-type-list">
@@ -138,11 +126,7 @@
           </svg>
           {{ list.name }}
         </li>
-        <li
-          class="col-3 col-sm-3 col-md-3 col-lg-1"
-          v-for="(urlink, urlinx) in list.urlList"
-          :key="urlinx"
-        >
+        <li class="col-3 col-sm-3 col-md-3 col-lg-1" v-for="(urlink, urlinx) in list.urlList" :key="urlinx">
           <a rel="nofollow" :href="urlink.url" target="_blank"
             ><svg class="icon" aria-hidden="true">
               <use :xlink:href="`#icon-${urlink.code}`"></use></svg
@@ -151,18 +135,16 @@
         </li>
       </ul>
     </div>
-    <remote-script
-      src="https://at.alicdn.com/t/font_1230786_ewprpwrczvj.js"
-    ></remote-script>
+    <remote-script src="https://at.alicdn.com/t/font_1230786_ewprpwrczvj.js"></remote-script>
   </div>
 </template>
 
 <script>
-import urlList from "./url.js";
-import "@/utils/importJs";
+import urlList from './url.js';
+import '@/utils/importJs';
 export default {
-  name: "",
-  props: [""],
+  name: '',
+  props: [''],
   data() {
     return {
       urlList,
@@ -171,9 +153,7 @@ export default {
 
   components: {},
 
-  mounted() {
-    console.log(urlList);
-  },
+  mounted() {},
 
   methods: {},
 
