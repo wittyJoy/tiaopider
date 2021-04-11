@@ -432,7 +432,7 @@ export default {
   justify-content: center;
   min-height: 100vh;
   // background: url("https://www.tiaopider.com/space/img/bg.png") no-repeat center;
-  background-color: rgba(0, 0, 0, 0.1);
+  // background-color: rgba(0, 0, 0, 0.1);
   background-size: cover;
   // @media screen and (max-width: 700px), (max-height: 500px) {
   flex-wrap: wrap;

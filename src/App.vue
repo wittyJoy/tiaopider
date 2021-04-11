@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import flyFish from "@/components/flyFish/flyFish.vue";
+import flyFish from '@/components/flyFish/flyFish.vue';
 export default {
   components: {
     flyFish,
@@ -15,6 +15,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./assets/css/common.scss";
-@import "./assets/css/variables.scss";
+@import './assets/css/common.scss';
+@import './assets/css/variables.scss';
 </style>

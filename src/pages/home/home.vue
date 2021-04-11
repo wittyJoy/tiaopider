@@ -1,21 +1,21 @@
 <template>
   <div>
-    <mini-player />
+    <!-- <mini-player /> -->
   </div>
 </template>
 
 <script>
-import miniPlayer from "@/components/mini-player";
+// import miniPlayer from "@/components/mini-player";
 
 export default {
-  name: "",
-  props: [""],
+  name: '',
+  props: [''],
   data() {
     return {};
   },
 
   components: {
-    miniPlayer,
+    // miniPlayer,
   },
 
   computed: {},

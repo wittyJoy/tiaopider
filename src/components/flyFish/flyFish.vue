@@ -28,7 +28,7 @@ export default {
 .container {
   width: 100%;
   position: fixed;
-  z-index: 8;
+  z-index: 10000;
   bottom: -4px;
   left: 0;
 }
