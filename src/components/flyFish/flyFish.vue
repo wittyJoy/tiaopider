@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import "./flyFish.js";
+import './flyFish.js';
 export default {
-  name: "flyFish",
-  props: [""],
+  name: 'flyFish',
+  props: [''],
   data() {
     return {};
   },
@@ -28,7 +28,7 @@ export default {
 .fish_container {
   width: 100%;
   position: fixed;
-  z-index: 10000;
+  z-index: 30;
   bottom: -4px;
   left: 0;
 }

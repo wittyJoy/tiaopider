@@ -10,11 +10,6 @@ const routes = [
     component: () => import('@/pages/login/login.vue'),
   },
   {
-    path: '/home',
-    name: '首页',
-    component: () => import('@/pages/home/home.vue'),
-  },
-  {
     path: '/',
     // path: "/daohang",
     name: '导航',

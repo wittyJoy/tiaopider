@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view class="app-page" />
     <fly-fish />
   </div>
 </template>
@@ -17,4 +17,7 @@ export default {
 <style lang="scss">
 @import './assets/css/common.scss';
 @import './assets/css/variables.scss';
+.app-page {
+  padding-bottom: 75px;
+}
 </style>

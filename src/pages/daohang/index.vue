@@ -17,8 +17,7 @@
       <div class="bottom-cover" style="background-image: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(244 248 251 / 0.6) 50%, rgb(244 248 251) 100%)"></div>
     </div>
 
-    <!-- 1234567890 -->
-    <div class="container" style="margin-top: 100px; position: relative; z-index: 100">
+    <div class="container">
       <!--搜索开始-->
       <!-- <div id="search" class="s-search">
         <div id="search-list" class="hide-type-list">
@@ -167,7 +166,7 @@ export default {
   watch: {},
 };
 </script>
-<style scoped lang="css">
+<style scoped lang="scss">
 .page {
   /* padding-bottom: 140px; */
 }
@@ -183,7 +182,7 @@ svg.icon {
   list-style: none;
   padding: 10px 20px;
   position: relative;
-  z-index: 1000;
+  z-index: 20;
   margin: 20px 0;
   border-radius: 15px;
   background: #fff;
@@ -261,26 +260,25 @@ svg.icon {
   z-index: 10;
 }
 .container {
+  position: relative;
   /* width: 100%; */
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+  padding: 0 15px 30vw;
+  margin: 100px auto 0;
 }
 .footer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  width: 100%;
+  position: absolute;
+  bottom: -6.9vw;
   height: 30vw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 93%;
   color: #999;
   font-size: 12px;
   background: url('../../assets/img/warp-bg/footer.png') no-repeat;
   background-size: contain;
   background-position: center 0;
-}
-.footer .info {
-  padding: 20px;
+  z-index: 20;
 }
 
 a:link {

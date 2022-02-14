@@ -67,8 +67,8 @@ export default {
 <style lang="scss" scoped>
 .dance-girl {
   display: inline-block;
-  width: 700px;
-  height: 700px;
+  width: 441px;
+  height: 580px;
   p {
     font-weight: 600;
     width: 100%;
@@ -79,6 +79,7 @@ export default {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     transform-origin: 50% 50%;

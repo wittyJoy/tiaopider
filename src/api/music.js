@@ -8,6 +8,13 @@ export default {
       method: 'get',
     });
   },
+  /** @新音乐推荐 */
+  getNewSongs: () => {
+    return request({
+      url: '/personalized/newsong',
+      method: 'get',
+    });
+  },
   /** @每日推荐 获取每日推荐的歌曲数据 */
   getRecommendList: () => {
     return request({
