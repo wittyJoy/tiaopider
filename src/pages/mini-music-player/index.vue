@@ -72,7 +72,7 @@ export default {
             cover: item.picUrl,
             source: `https://music.163.com/song/media/outer/url?id=${item.id}`,
             url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
-            favorited: true,
+            favorited: false,
           };
         });
       } else {
@@ -91,7 +91,7 @@ export default {
             cover: item.picUrl,
             source: `https://music.163.com/song/media/outer/url?id=${item.id}`,
             url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
-            favorited: true,
+            favorited: false,
           };
         });
       } else {

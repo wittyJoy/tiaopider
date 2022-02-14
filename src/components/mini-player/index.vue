@@ -138,10 +138,10 @@ export default {
       // this.circleLeft = width + '%';
       this.barWidth = `${width}%`;
       this.circleLeft = `${width}%`;
-      let durmin = Math.floor(this.audio.duration / 60);
-      let dursec = Math.floor(this.audio.duration - durmin * 60);
-      let curmin = Math.floor(this.audio.currentTime / 60);
-      let cursec = Math.floor(this.audio.currentTime - curmin * 60);
+      let durmin = Math.floor(this.audio.duration / 60) || 0;
+      let dursec = Math.floor(this.audio.duration - durmin * 60) || 0;
+      let curmin = Math.floor(this.audio.currentTime / 60) || 0;
+      let cursec = Math.floor(this.audio.currentTime - curmin * 60) || 0;
       if (durmin < 10) {
         // durmin = '0' + durmin;
         durmin = `0${durmin}`;

@@ -167,9 +167,9 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.page {
-  /* padding-bottom: 140px; */
-}
+// .page {
+//   /* padding-bottom: 140px; */
+// }
 svg.icon {
   width: 14px;
   height: 14px;

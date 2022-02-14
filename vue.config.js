@@ -14,8 +14,6 @@ module.exports = {
   // 公共路径
   publicPath: './',
   devServer: {
-    https: false, // https:{type:Boolean}
-    host: 'localhost',
     port: 2020, // 端口号
     open: true, // 配置自动启动浏览器
     hotOnly: true, // 热更新
@@ -27,15 +25,15 @@ module.exports = {
     // -----------------------------
     // 配置跨域代理
     proxy: {
-      '/api': {
+      '/c-api': {
         // 以 “/api” 开头的 代理到 下边的 target 属性 的值 中
-        target: `http://www.tiaopider.com:3000`,
+        target: `https://www.tiaopider.com/c-api`,
         // 是否改变域名
         changeOrigin: true,
         // 路径重写
         pathRewrite: {
           // 这个意思就是以api开头的，定向到哪里, 如果你的后边还有路径的话， 会自动拼接上
-          ['^/api']: '',
+          ['^/c-api']: '',
         },
       },
     },

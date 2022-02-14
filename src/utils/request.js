@@ -6,7 +6,7 @@ import axios from 'axios';
 /** 创建axios实例 */
 const service = axios.create({
   //配置基础路径
-  baseURL: '/api',
+  baseURL: '',
   timeout: 6000,
 });
 
