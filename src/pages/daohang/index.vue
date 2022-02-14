@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <!--视频头部背景-->
     <div class="banner-video">
       <!--视频来自阿里云首页，有需要请自行更换-->
@@ -134,7 +134,14 @@
           >
         </li>
       </ul>
+      <div class="footer">
+        <div class="info">
+          <span>互联网ICP备案：<a href="http://beian.miit.gov.cn/" target="_blank">鄂ICP备19021491号-1</a></span>
+        </div>
+      </div>
     </div>
+
+    <!-- 阿里图标库 -->
     <remote-script src="https://at.alicdn.com/t/font_1230786_ewprpwrczvj.js"></remote-script>
   </div>
 </template>
@@ -161,6 +168,9 @@ export default {
 };
 </script>
 <style scoped lang="css">
+.page {
+  /* padding-bottom: 140px; */
+}
 svg.icon {
   width: 14px;
   height: 14px;
@@ -256,9 +266,29 @@ svg.icon {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  margin-bottom: 90px;
+}
+.footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 30vw;
+  color: #999;
+  font-size: 12px;
+  background: url('../../assets/img/warp-bg/footer.png') no-repeat;
+  background-size: contain;
+  background-position: center 0;
+}
+.footer .info {
+  padding: 20px;
 }
 
+a:link {
+  color: #999;
+}
+a:visited {
+  color: #999;
+}
 /* --------------------- */
 
 @media screen and (min-width: 1200px) {

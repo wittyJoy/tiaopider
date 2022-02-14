@@ -1,10 +1,14 @@
-import $ from '@/utils/jquery-3.4.1.js';
-
-var RENDERER = {
+/** 初始化"渲染器" */
+let RENDERER = {
+  /** 点の间距 */
   POINT_INTERVAL: 5,
+  /** 鱼の数量 */
   FISH_COUNT: 3,
+  /** 最大间隔数 */
   MAX_INTERVAL_COUNT: 50,
+  /** 初始高度/百分比 */
   INIT_HEIGHT_RATE: 0.5,
+  /** 门槛 */
   THRESHOLD: 50,
 
   init: function() {
@@ -15,28 +19,27 @@ var RENDERER = {
     this.render();
   },
 
-  // 设置参数
+  /** 设置参数 */
   setParameters: function() {
-    this.$window = $(window);
-    this.$container = $('#jsi-flying-fish-container');
-    this.$canvas = $('<canvas />');
-    this.context = this.$canvas
-      .appendTo(this.$container)
-      .get(0)
-      .getContext('2d');
+    this.$window = window;
+    this.$document = document.body;
+    this.$container = document.getElementById('jsi-flying-fish-container');
+    this.$canvas = document.createElement('canvas');
+    this.$container.appendChild(this.$canvas);
+    this.context = this.$canvas.getContext('2d');
     this.points = [];
     this.fishes = [];
     this.watchIds = [];
   },
 
-  // 创建表面点
+  /** 创建表面点 */
   createSurfacePoints: function() {
-    var count = Math.round(this.width / this.POINT_INTERVAL);
+    let count = Math.round(this.width / this.POINT_INTERVAL);
     this.pointInterval = this.width / (count - 1);
     this.points.push(new SURFACE_POINT(this, 0));
 
-    for (var i = 1; i < count; i++) {
-      var point = new SURFACE_POINT(this, i * this.pointInterval),
+    for (let i = 1; i < count; i++) {
+      let point = new SURFACE_POINT(this, i * this.pointInterval),
         previous = this.points[i - 1];
 
       point.setPreviousPoint(previous);
@@ -45,7 +48,7 @@ var RENDERER = {
     }
   },
 
-  // 重建方法
+  /** 重建方法 */
   reconstructMethods: function() {
     this.watchWindowSize = this.watchWindowSize.bind(this);
     this.jdugeToStopResize = this.jdugeToStopResize.bind(this);
@@ -59,22 +62,23 @@ var RENDERER = {
     this.fishes.length = 0;
     this.watchIds.length = 0;
     this.intervalCount = this.MAX_INTERVAL_COUNT;
-    this.width = this.$container.width();
-    // this.height = this.$container.height();
+    this.width = this.$container.offsetWidth;
+    // this.height = this.$container.offsetHeight;
     this.height = 140;
     this.fishCount = (((this.FISH_COUNT * this.width) / 500) * this.height) / 500;
-    this.$canvas.attr({ width: this.width, height: this.height });
+    this.$canvas.width = this.width;
+    this.$canvas.height = this.height;
     this.reverse = false;
 
     this.fishes.push(new FISH(this));
     this.createSurfacePoints();
   },
 
-  // 观察窗口大小
+  /** 观察窗口大小 */
   watchWindowSize: function() {
     this.clearTimer();
-    this.tmpWidth = this.$window.width();
-    this.tmpHeight = this.$window.height();
+    this.tmpWidth = this.$window.outerWidth;
+    this.tmpHeight = this.$window.outerHeight;
     this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL));
   },
   clearTimer: function() {
@@ -82,41 +86,58 @@ var RENDERER = {
       clearTimeout(this.watchIds.pop());
     }
   },
-  // 转到停止调整大小
+
+  /** 转到停止调整大小 */
   jdugeToStopResize: function() {
-    var width = this.$window.width(),
-      // height = this.$window.height(),
-      stopped = width == this.tmpWidth; /**&& height == this.tmpHeight;*/
+    let width = this.$window.outerWidth,
+      height = this.$window.outerHeight,
+      stopped = (width == this.tmpWidth) && (height == this.tmpHeight);
 
     this.tmpWidth = width;
-    // this.tmpHeight = height;
+    this.tmpHeight = height;
 
     if (stopped) {
       this.setup();
     }
   },
   bindEvent: function() {
-    this.$window.on('resize', this.watchWindowSize);
-    this.$container.on('mouseenter', this.startEpicenter);
-    this.$container.on('mousemove', this.moveEpicenter);
-    // this.$container.on('click', this.reverseVertical);
+    this.$window.onresize = this.watchWindowSize;
+    // this.$container.onclick = this.reverseVertical;
+    this.$container.onmouseenter = this.startEpicenter;
+    // this.$container.addEventListener('onmousemove', this.moveEpicenter);
+    this.$container.onmousemove = this.moveEpicenter;
   },
   getAxis: function(event) {
-    var offset = this.$container.offset();
-
+    let offset = this.getOffset(this.$container);
     return {
-      x: event.clientX - offset.left + this.$window.scrollLeft(),
-      y: event.clientY - offset.top + this.$window.scrollTop(),
+      x: event.clientX - offset.left + this.$document.scrollLeft,
+      y: event.clientY - offset.top + this.$document.scrollTop,
     };
   },
 
-  // 开始中心
+  getOffset: function(Node, offset) {
+    if (!offset) {
+      offset = {};
+      offset.top = 0;
+      offset.left = 0;
+    }
+    if (Node == document.body) {
+      //当该节点为body节点时，结束递归
+      return offset;
+    }
+    offset.top += Node.offsetTop;
+    offset.left += Node.offsetLeft;
+    return this.getOffset(Node.parentNode, offset); //向上累加offset里的值
+  },
+
+  /** 开始中心 */
   startEpicenter: function(event) {
     this.axis = this.getAxis(event);
   },
-  // 移动中心
+
+  /** 移动中心 */
   moveEpicenter: function(event) {
-    var axis = this.getAxis(event);
+    let axis = this.getAxis(event);
 
     if (!this.axis) {
       this.axis = axis;
@@ -125,12 +146,12 @@ var RENDERER = {
     this.axis = axis;
   },
 
-  // 生成中心
+  /** 生成中心 */
   generateEpicenter: function(x, y, velocity) {
     if (y < this.height / 2 - this.THRESHOLD || y > this.height / 2 + this.THRESHOLD) {
       return;
     }
-    var index = Math.round(x / this.pointInterval);
+    let index = Math.round(x / this.pointInterval);
 
     if (index < 0 || index >= this.points.length) {
       return;
@@ -138,21 +159,21 @@ var RENDERER = {
     this.points[index].interfere(y, velocity);
   },
 
-  // 反向垂直
+  /** 翻转 */
   reverseVertical: function() {
     this.reverse = !this.reverse;
 
-    for (var i = 0, count = this.fishes.length; i < count; i++) {
+    for (let i = 0, count = this.fishes.length; i < count; i++) {
       this.fishes[i].reverseVertical();
     }
   },
 
-  // 控制状态
+  /** 控制状态 */
   controlStatus: function() {
-    for (var i = 0, count = this.points.length; i < count; i++) {
+    for (let i = 0, count = this.points.length; i < count; i++) {
       this.points[i].updateSelf();
     }
-    for (var i = 0, count = this.points.length; i < count; i++) {
+    for (let i = 0, count = this.points.length; i < count; i++) {
       this.points[i].updateNeighbors();
     }
     if (this.fishes.length < this.fishCount) {
@@ -162,15 +183,15 @@ var RENDERER = {
       }
     }
   },
-  // 渲染
+  /** 渲染 */
   render: function() {
-    // 请求动画帧
+    /** 请求动画帧 */
     requestAnimationFrame(this.render);
     this.controlStatus();
     this.context.clearRect(0, 0, this.width, this.height);
     this.context.fillStyle = 'hsla(0, 0%, 95%, 1)';
 
-    for (var i = 0, count = this.fishes.length; i < count; i++) {
+    for (let i = 0, count = this.fishes.length; i < count; i++) {
       this.fishes[i].render(this.context);
     }
     this.context.save();
@@ -178,7 +199,7 @@ var RENDERER = {
     this.context.beginPath();
     this.context.moveTo(0, this.reverse ? 0 : this.height);
 
-    for (var i = 0, count = this.points.length; i < count; i++) {
+    for (let i = 0, count = this.points.length; i < count; i++) {
       this.points[i].render(this.context);
     }
     this.context.lineTo(this.width, this.reverse ? 0 : this.height);
@@ -187,7 +208,9 @@ var RENDERER = {
     this.context.restore();
   },
 };
-var SURFACE_POINT = function(renderer, x) {
+
+/** 初始化"表面点" */
+let SURFACE_POINT = function(renderer, x) {
   this.renderer = renderer;
   this.x = x;
   this.init();
@@ -205,27 +228,29 @@ SURFACE_POINT.prototype = {
     this.force = { previous: 0, next: 0 };
   },
 
-  // 设置上一点
+  /** 设置上一点 */
   setPreviousPoint: function(previous) {
     this.previous = previous;
   },
 
-  // 设置下一个点
+  /** 设置下一个点 */
   setNextPoint: function(next) {
     this.next = next;
   },
 
-  // 干涉
+  /** 干涉 */
   interfere: function(y, velocity) {
     this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - y >= 0 ? -1 : 1) * Math.abs(velocity);
   },
-  // 更新自己
+
+  /** 更新自己 */
   updateSelf: function() {
     this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height);
     this.fy *= this.SPRING_FRICTION;
     this.height += this.fy;
   },
-  // 更新邻居
+
+  /** 更新邻居 */
   updateNeighbors: function() {
     if (this.previous) {
       this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height);
@@ -234,7 +259,8 @@ SURFACE_POINT.prototype = {
       this.force.next = this.WAVE_SPREAD * (this.height - this.next.height);
     }
   },
-  // 渲染
+
+  /** 渲染 */
   render: function(context) {
     if (this.previous) {
       this.previous.height += this.force.previous;
@@ -247,7 +273,9 @@ SURFACE_POINT.prototype = {
     context.lineTo(this.x, this.renderer.height - this.height);
   },
 };
-var FISH = function(renderer) {
+
+/** 初始化"鱼" */
+let FISH = function(renderer) {
   this.renderer = renderer;
   this.init();
 };
@@ -273,16 +301,16 @@ FISH.prototype = {
     this.theta = 0;
     this.phi = 0;
   },
-  // 获取随机值
+  /** 获取随机值 */
   getRandomValue: function(min, max) {
     return min + (max - min) * Math.random();
   },
-  // 反向垂直
+  /** 翻转 */
   reverseVertical: function() {
     this.isOut = !this.isOut;
     this.ay *= -1;
   },
-  // 控制状态
+  /** 控制状态 */
   controlStatus: function(context) {
     this.previousY = this.y;
     this.x += this.vx;
@@ -322,7 +350,7 @@ FISH.prototype = {
       this.init();
     }
   },
-  // 渲染
+  /** 渲染 */
   render: function(context) {
     context.save();
     context.translate(this.x, this.y);
@@ -368,6 +396,7 @@ FISH.prototype = {
     this.controlStatus(context);
   },
 };
-$(function() {
+
+window.onload = () => {
   RENDERER.init();
-});
+};

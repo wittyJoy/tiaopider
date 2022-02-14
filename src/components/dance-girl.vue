@@ -30,7 +30,7 @@ export default {
     // 字体大小
     const fontSize = 11;
     // 背景图片
-    const imgUrl = 'http://kaysama.gitee.io/blog-source-host/%E5%AD%97%E7%AC%A6%E7%94%BB/mememe.gif';
+    const imgUrl = 'https://www.tiaopider.com/space/mememe.gif';
     $p.style.cssText = `font-size:${fontSize}px;line-height:${fontSize}px;`;
     const text = $p.innerHTML.replace(/(\s+)/g, '');
     const textLength = text.length;

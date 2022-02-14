@@ -57,7 +57,7 @@ export default [
       {
         code: "youku",
         name: "片库",
-        url: "https://www.pianku.li",
+        url: "https://www.btnull.org/",
       },
     ],
   },

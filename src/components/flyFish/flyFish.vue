@@ -1,5 +1,5 @@
 <template>
-  <div id="jsi-flying-fish-container" class="container"></div>
+  <div id="jsi-flying-fish-container" class="fish_container"></div>
 </template>
 
 <script>
@@ -25,7 +25,7 @@ export default {
 };
 </script>
 <style scoped>
-.container {
+.fish_container {
   width: 100%;
   position: fixed;
   z-index: 10000;

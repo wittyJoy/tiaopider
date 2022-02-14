@@ -41,31 +41,6 @@ module.exports = {
     },
     // ------------------------------
   },
-  // chainWebpack: (config) => {
-  //   // svg rule loader
-  //   const svgRule = config.module.rule("svg") // 找到svg-loader
-  //   svgRule.uses.clear() // 清除已有的loader, 如果不这样做会添加在此loader之后
-  //   // svgRule.exclude.add(/node_modules/) // 正则匹配排除node_modules目录
-
-  //   // 添加svg新的loader处理
-  //   svgRule
-  //     .test(/\.svg$/)
-  //     .include.add(path.resolve(__dirname, "./src/icons"))
-  //     .end()
-  //     .use("svg-sprite-loader")
-  //     .loader("svg-sprite-loader")
-  //     .options({
-  //       symbolId: "icon-[name]",
-  //     })
-  //   const fileRule = config.module.rule("file")
-  //   fileRule.uses.clear()
-  //   fileRule
-  //     .test(/\.svg$/)
-  //     .exclude.add(path.resolve(__dirname, "./src/icons"))
-  //     .end()
-  //     .use("file-loader")
-  //     .loader("file-loader")
-  // },
   chainWebpack: config => {
     const svgRule = config.module.rule('svg'); // 找到svg-loader
     svgRule.uses.clear(); // 清除已有的loader, 如果不这样做会添加在此loader之后

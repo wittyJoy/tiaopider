@@ -17,13 +17,14 @@ service.interceptors.request.use(
     Nprogress.start();
     // //携带Token
     // if (store.getters.token) {
-    //   config.headers['Authorization'] = getToken() || '天王盖地虎，宝塔镇河妖';
+    //   config.headers['Authorization'] = getToken() || encodeURIComponent('天王盖地虎，宝塔镇河妖');
     // }
     return config;
   },
   error => {
-    console.error(error);
+    //请求失败，结束进度条
     Nprogress.done();
+    console.error(error);
     return Promise.reject(error);
   }
 );
@@ -31,12 +32,14 @@ service.interceptors.request.use(
 /** 响应拦截器 */
 service.interceptors.response.use(
   response => {
+    //响应完成，结束进度条
     Nprogress.done();
     return response.data;
   },
   error => {
-    console.error(error.message);
+    //响应报错，结束进度条
     Nprogress.done();
+    console.error(error.message);
     return Promise.reject(error);
   }
 );
