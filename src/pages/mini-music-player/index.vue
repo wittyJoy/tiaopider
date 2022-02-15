@@ -62,19 +62,24 @@ export default {
     },
     /** 获取推荐新音乐 */
     async getNewSongs() {
-      const { code, result: data, message } = await musicApi.getNewSongs();
+      const { code, result: data, message } = await musicApi.getNewSongs({ limit: 50 });
       if (code === 200) {
         this.tracks = data.map((item, index) => {
+          let durmin = Math.floor(item.song.duration / 1000 / 60) || 0;
+          let dursec = Math.floor(item.song.duration / 1000 - durmin * 60) || 0;
+          durmin = durmin < 10 ? `0${durmin}` : durmin;
+          dursec = dursec < 10 ? `0${dursec}` : dursec;
           return {
-            id: index,
+            index,
+            id: item.id,
             name: item.name,
             artist: item.song.artists[0].name,
-            cover: item.picUrl,
+            cover: item.picUrl.replace(/^http:\/\//, 'https:'),
             source: `https://music.163.com/song/media/outer/url?id=${item.id}`,
-            url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
-            favorited: false,
+            duration: `${durmin}:${dursec}`,
           };
         });
+        console.log(this.tracks);
       } else {
         console.error(message);
       }
@@ -83,17 +88,17 @@ export default {
     async getRecommendList() {
       const { code, result: data, message } = await musicApi.getRecommendList();
       if (code === 200) {
-        this.tracks = data.map((item, index) => {
+        /* this.tracks = data.map((item, index) => {
           return {
             id: index,
             name: item.name,
             artist: item.song.artists[0].name,
-            cover: item.picUrl,
+            cover: item.picUrl.replace(/^http:\/\//, 'https:'),
             source: `https://music.163.com/song/media/outer/url?id=${item.id}`,
-            url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
+            url: 'https://www.baidu.com',
             favorited: false,
           };
-        });
+        }); */
       } else {
         console.error(message);
       }
@@ -106,6 +111,12 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   width: 100%;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .loginModel {
   position: absolute;

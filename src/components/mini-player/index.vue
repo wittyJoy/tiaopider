@@ -6,30 +6,31 @@
           <div
             class="player-cover__item"
             v-for="track in tracks"
-            :key="track.id"
-            v-show="track.id === currentTrackIndex"
-            :style="track.id === currentTrackIndex ? { backgroundImage: `url(${track.cover})` } : {}"
+            :key="track.index"
+            v-show="track.index === currentTrackIndex"
+            :style="track.index === currentTrackIndex ? { backgroundImage: `url(${track.cover})` } : {}"
           ></div>
         </transition-group>
       </div>
       <div class="player-controls">
-        <div class="player-controls__item -favorite" :class="{ active: currentTrack.favorited }" @click="favorite">
-          <svg-icon icon="heart-o" icon-class="icon" />
+        <!-- <div class="player-controls__item -favorite" :class="{ active: currentTrack.favorited }" @click="favorite">
+          <svg-icon icon="heart-o" class="icon" />
+        </div> -->
+        <div class="player-controls__item" :class="{ active: currentTrack.favorited }" @click="favorite">
+          <svg-icon icon="mine" class="icon" />
         </div>
-        <a :href="currentTrack.url" target="_blank" class="player-controls__item">
-          <svg-icon icon="link" icon-class="icon" />
-        </a>
+        <div class="player-controls__item" @click="showPlaysist = !showPlaysist">
+          <svg-icon icon="playlist" class="icon" />
+        </div>
         <div class="player-controls__item" @click="prevTrack">
-          <svg-icon icon="prev" icon-class="icon" />
+          <svg-icon icon="prev" class="icon" />
         </div>
         <div class="player-controls__item" @click="nextTrack">
-          <svg class="icon">
-            <use xlink:href="#icon-next"></use>
-          </svg>
+          <svg-icon icon="next" class="icon" />
         </div>
         <div class="player-controls__item -xl js-play" @click="play">
-          <svg-icon icon="pause" icon-class="icon" v-if="isTimerPlaying" />
-          <svg-icon icon-class="icon" icon="play" v-else />
+          <svg-icon icon="pause" class="icon" v-if="isTimerPlaying" />
+          <svg-icon icon="play" class="icon" v-else />
         </div>
       </div>
     </div>
@@ -45,6 +46,15 @@
         <div class="progress__current" :style="{ width: barWidth }"></div>
       </div>
       <div class="progress__time" :key="currentTime">{{ currentTime }}</div>
+    </div>
+    <div class="player__list scrollbar" v-show="showPlaysist">
+      <div class="player_item" v-for="track in tracks" :key="track.index">
+        <div class="player_item_info ellipsis">
+          <span>{{ `${track.index + 1}、` }}</span>
+          {{ `${track.name}／${track.artist}` }}
+        </div>
+        <div class="player_item_duration">{{ track.duration }}</div>
+      </div>
     </div>
     <div v-cloak></div>
   </div>
@@ -74,6 +84,7 @@ export default {
       currentTrack: {},
       currentTrackIndex: 0,
       transitionName: null,
+      showPlaysist: false,
     };
   },
   watch: {
@@ -130,36 +141,21 @@ export default {
         this.audio.pause();
         this.isTimerPlaying = false;
       }
+      document.title = this.currentTrack.name;
     },
     /** 计算时间 */
     generateTime() {
       let width = (100 / this.audio.duration) * this.audio.currentTime;
-      // this.barWidth = width + '%';
-      // this.circleLeft = width + '%';
       this.barWidth = `${width}%`;
       this.circleLeft = `${width}%`;
       let durmin = Math.floor(this.audio.duration / 60) || 0;
       let dursec = Math.floor(this.audio.duration - durmin * 60) || 0;
       let curmin = Math.floor(this.audio.currentTime / 60) || 0;
       let cursec = Math.floor(this.audio.currentTime - curmin * 60) || 0;
-      if (durmin < 10) {
-        // durmin = '0' + durmin;
-        durmin = `0${durmin}`;
-      }
-      if (dursec < 10) {
-        // dursec = '0' + dursec;
-        dursec = `0${dursec}`;
-      }
-      if (curmin < 10) {
-        // curmin = '0' + curmin;
-        curmin = `0${curmin}`;
-      }
-      if (cursec < 10) {
-        // cursec = '0' + cursec;
-        cursec = `0${cursec}`;
-      }
-      // this.duration = durmin + ':' + dursec;
-      // this.currentTime = curmin + ':' + cursec;
+      durmin = durmin < 10 ? `0${durmin}` : durmin;
+      dursec = dursec < 10 ? `0${dursec}` : dursec;
+      curmin = curmin < 10 ? `0${curmin}` : curmin;
+      cursec = cursec < 10 ? `0${cursec}` : cursec;
       this.duration = `${durmin}:${dursec}`;
       this.currentTime = `${curmin}:${cursec}`;
     },
@@ -176,17 +172,14 @@ export default {
       if (percentage < 0) {
         percentage = 0;
       }
-      // this.barWidth = percentage + '%';
-      // this.circleLeft = percentage + '%';
       this.barWidth = `${percentage}%`;
       this.circleLeft = `${percentage}%`;
       this.audio.currentTime = (maxduration * percentage) / 100;
-      this.audio.play();
+      this.isTimerPlaying && this.audio.play();
     },
 
     /** 点击进度条 */
     clickProgress(e) {
-      this.isTimerPlaying = true;
       this.audio.pause();
       this.updateBar(e.pageX);
     },
@@ -214,7 +207,6 @@ export default {
         this.currentTrackIndex = 0;
       }
       this.currentTrack = this.tracks[this.currentTrackIndex];
-      this.$forceUpdate();
       this.resetPlayer();
     },
 
@@ -224,6 +216,7 @@ export default {
       this.circleLeft = 0;
       this.audio.currentTime = 0;
       this.audio.src = this.currentTrack.source;
+      document.title = this.currentTrack.name;
       setTimeout(() => {
         if (this.isTimerPlaying) {
           this.audio.play();
@@ -491,6 +484,8 @@ export default {
   }
   &__time {
     margin-top: 2px;
+    height: 20px;
+    line-height: 16px;
     color: #71829e;
     font-weight: 700;
     font-size: 16px;
@@ -581,5 +576,34 @@ export default {
   transform: scale(0.55);
   pointer-events: none;
   opacity: 0;
+}
+
+.player__list {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 75px;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 12px;
+  background: #eef3f7;
+  box-shadow: inset 5px 5px 9px #d4d8dc, inset -5px -5px 9px #ffffff;
+  .player_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: calc(100% - 30px);
+    height: 50px;
+    color: #71829e;
+    & + .player_item {
+      border-top: 2px solid #fff;
+    }
+    &_info {
+      width: calc(100% - 50px);
+    }
+    &_duration {
+      width: 40px;
+    }
+  }
 }
 </style>

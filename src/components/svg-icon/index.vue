@@ -1,39 +1,39 @@
 <template>
-  <svg :class="svgClass" aria-hidden="true" v-on="$listeners">
+  <svg class="svg" aria-hidden="true" v-on="$listeners">
     <use :xlink:href="iconName" />
   </svg>
 </template>
- 
+
 <script>
 export default {
-  name: "SvgIcon",
+  name: 'SvgIcon',
   props: {
     icon: {
       type: String,
       required: true,
     },
-    iconClass: {
-      type: String,
-      default: "",
-    },
+    // class: {
+    //   type: String,
+    //   default: '',
+    // },
   },
   computed: {
     iconName() {
       return `#icon-${this.icon}`;
     },
-    svgClass() {
-      if (this.iconClass) {
-        return "svg-icon " + this.iconClass;
-      } else {
-        return "svg-icon";
-      }
-    },
+    // svgClass() {
+    //   if (this.class) {
+    //     return `svg ${this.class}`;
+    //   } else {
+    //     return 'svg';
+    //   }
+    // },
   },
 };
 </script>
- 
+
 <style scoped>
-.svg-icon {
+.svg {
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;

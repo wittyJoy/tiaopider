@@ -9,9 +9,9 @@ export default {
     });
   },
   /** @新音乐推荐 */
-  getNewSongs: () => {
+  getNewSongs: param => {
     return request({
-      url: 'c-api/personalized/newsong',
+      url: `c-api/personalized/newsong?limit=${param.limit}`,
       method: 'get',
     });
   },
