@@ -127,6 +127,7 @@ export default {
         const element = this.tracks[index];
         let link = document.createElement('link');
         link.rel = 'prefetch';
+        // link.rel = 'preload';
         link.href = element.cover;
         link.as = 'image';
         document.head.appendChild(link);

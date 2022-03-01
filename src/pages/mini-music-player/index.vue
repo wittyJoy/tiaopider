@@ -74,12 +74,11 @@ export default {
             id: item.id,
             name: item.name,
             artist: item.song.artists[0].name,
-            cover: item.picUrl.replace(/^http:\/\//, 'https:'),
+            cover: item.picUrl.replace(/^http:\/\//, 'https://'),
             source: `https://music.163.com/song/media/outer/url?id=${item.id}`,
             duration: `${durmin}:${dursec}`,
           };
         });
-        console.log(this.tracks);
       } else {
         console.error(message);
       }

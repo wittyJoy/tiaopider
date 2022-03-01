@@ -7,7 +7,7 @@ import axios from 'axios';
 const service = axios.create({
   //配置基础路径
   baseURL: '',
-  timeout: 6000,
+  timeout: 1000 * 60,
 });
 
 /** 请求拦截器 */
